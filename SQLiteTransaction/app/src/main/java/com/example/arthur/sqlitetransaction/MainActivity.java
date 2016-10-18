@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
-    private static final String DB_Name = "MyTable";
+    private static final String DB_NAME = "MyDB";
     private static final String TABLE_NAME = "MyTable";
     private SQLiteDatabase database;
 
@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void initDB(){
-        database = this.openOrCreateDatabase(DB_Name, MODE_PRIVATE, null);
+        database = this.openOrCreateDatabase(DB_NAME, MODE_PRIVATE, null);
         database.execSQL("CREATE TABLE IF NOT EXISTS " + TABLE_NAME + "(FirstNumber INT, SecondNumber INT, Result INT);");
         database.delete(TABLE_NAME, null, null);
     }
@@ -39,6 +39,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         database.delete(TABLE_NAME, null, null);
         long startTime = System.currentTimeMillis();
+        insertRecords();
         long diff = System.currentTimeMillis() - startTime;
         tvTime.setText("Time: " + Long.toString(diff) + "ms");
     }
