@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">MyCalc</string>
+    <string name="BtnClear"> Clear </string>
+</resources>
