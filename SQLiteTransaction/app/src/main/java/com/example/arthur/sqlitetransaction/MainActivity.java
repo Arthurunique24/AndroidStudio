@@ -2,6 +2,7 @@ package com.example.arthur.sqlitetransaction;
 
 import android.content.ContentValues;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteStatement;
 import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -22,7 +23,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        initDB();
         tvTime = (TextView) findViewById(R.id.tvTime);
         btnInsert = (Button) findViewById(R.id.btnInsert);
         btnInsert.setOnClickListener(this);
@@ -45,12 +46,32 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void insertRecords(){
-        for(int i = 0; i < 1000; i++){
-            ContentValues contentValues = new ContentValues();
-            contentValues.put("FirstNumber", i);
-            contentValues.put("SecondNumber", i);
-            contentValues.put("Result", i*i);
-            database.insert(TABLE_NAME, null, contentValues);
+        /*database.beginTransaction();
+        try {
+            for (int i = 0; i < 1000; i++) {
+                ContentValues contentValues = new ContentValues();
+                contentValues.put("FirstNumber", i);
+                contentValues.put("SecondNumber", i);
+                contentValues.put("Result", i * i);
+                database.insert(TABLE_NAME, null, contentValues);
+            }
+            database.setTransactionSuccessful();
+        } finally {
+            database.endTransaction();
+        } */
+
+        String str = "INSERT INTO " + TABLE_NAME + " VALUES(?, ?, ?);";
+        SQLiteStatement statement = database.compileStatement(str);
+        database.beginTransaction();
+        try{
+            for(int i = 0; i < 1000; i++){
+                statement.clearBindings();
+                statement.bindLong(1 , i);
+                statement.bindLong(2 , i);
+                statement.bindLong(3 , i*i);
+            } database.setTransactionSuccessful();
+        } finally {
+            database.endTransaction();
         }
     }
 
