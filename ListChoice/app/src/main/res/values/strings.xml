@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">ListChoice</string>
+    <string name="get_checked_items">Get checked items</string>
+    <string-array name="names">
+        <item>Артур</item>
+        <item>Вика</item>
+        <item>Савва</item>
+        <item>Слава</item>
+        <item>Стас</item>
+        <item>Борис</item>
+        <item>Костя</item>
+        <item>Игорь</item>
+        <item>Анна</item>
+        <item>Денис</item>
+        <item>Вадим</item>
+        <item>Ольга</item>
+        <item>Сергей</item>
+    </string-array>
+</resources>
